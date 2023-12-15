@@ -363,6 +363,8 @@ class QuizAnswerView(LoginRequiredMixin, FormView):
         context["quiz_id"] = quiz_id
         quiz = self.get_quiz()
         context["quiz_title"] = quiz.quiz_title
+        questions = Question.objects.filter(quiz_title=quiz)
+        context["questions"] = questions
         # print("Quiz object:", quiz.__dict__)
         context["course_id"] = self.get_course_id()
         # Check if 'quiz_last_attempt' is present in the session

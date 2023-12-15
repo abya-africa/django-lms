@@ -9,17 +9,75 @@
 
 {% block main_content %}
 
-<div class="mt-[150px] text-cyan-950 w-[70%] ml-3 p-4">
-  <h2 class="font-semibold">Quiz Title:
+<div class="lg:mt-[150px] mt-[120px] text-cyan-950 lg:w-[70%] absolute lg:relative left-0 w-[400px] lg:ml-3 lg:p-4 p-2">
+  <h2 class="font-semibold text-xl">Quiz Title:
     {% if quiz_title %}
         <span class="underline ml-2">{{ quiz_title }}</span>
     {% else %}
         Error: quiz.quiz_title is None
     {% endif %}
-    </h2><form method="post" class="p-4 bg-gray-100 rounded-lg font-sans" action="{% url 'assignments:submit_quiz' quiz_id=quiz_id %}">
-    {% csrf_token %}
-    {{ form }} 
-    <button class="m-2 p-2 text-lg font-sans font-semibold bg-cyan-950 text-gray-100 hover:outline-none hover:bg-yellow-500 rounded-lg" type="submit">Submit Answers</button>
-</form>
+    </h2>
+    <form method="post" class="p-4 bg-gray-100 rounded-lg font-sans" action="{% url 'assignments:submit_quiz' quiz_id=quiz_id %}">
+        {% csrf_token %}
+        <div id="quiz-container">
+            {% for question in questions %}
+            <div class="question" style="display: none;">
+                <h4>{{ question.question_text }}</h4>
+                {% for choice in question.choice.all %}
+                    <label>
+                        <input type="radio" name="question_{{ question.id }}_choice" value="{{ choice.id }}">
+                        {{ choice.text }}
+                    </label><br>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            <div class="flex flex-row space-x-2 mt-4">
+              <button id="prev-button" class="bg-cyan-950 text-white rounded-lg hover:bg-yellow-500 font-sans font-semibold m-2 p-2" style="display: none;">Previous Question</button>
+              <button id="next-button" class="bg-cyan-950 text-white rounded-lg hover:bg-yellow-500 font-sans font-semibold m-2 p-2">Next Question</button>
+              <button id="submit-button" class="m-2 p-2 lg:text-lg text-md font-sans font-semibold bg-cyan-950 text-gray-100 hover:outline-none hover:bg-yellow-500 rounded-lg" type="submit" style="display: none;">Submit Answers</button>
+            </div>
+        </div>
+        <div id="error-message" style="color: red;"></div>
+    </form>
 </div>
+
+<script>
+let currentQuestionIndex = 0;
+const questions = document.querySelectorAll('.question');
+const prevButton = document.getElementById('prev-button');
+const nextButton = document.getElementById('next-button');
+const submitButton = document.getElementById('submit-button');
+
+function updateQuestionVisibility() {
+    questions.forEach((question, index) => {
+        question.style.display = index === currentQuestionIndex ? 'block' : 'none';
+    });
+
+    prevButton.style.display = currentQuestionIndex === 0 ? 'none' : 'block';
+    nextButton.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'block';
+    submitButton.style.display = currentQuestionIndex === questions.length - 1 ? 'block' : 'none';
+}
+
+prevButton.addEventListener('click', () => {
+    currentQuestionIndex--;
+    updateQuestionVisibility();
+});
+
+nextButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    const currentQuestion = questions[currentQuestionIndex];
+    const isAnswered = currentQuestion.querySelector('input[type="radio"]:checked');
+    const errorMessage = document.getElementById('error-message');
+    if (!isAnswered) {
+        errorMessage.textContent = 'Please answer the question before proceeding.';
+        return;
+    }
+    errorMessage.textContent = '';
+    currentQuestionIndex++;
+    updateQuestionVisibility();
+});
+
+updateQuestionVisibility();
+</script>
+
 {% endblock %}
