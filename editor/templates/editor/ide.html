@@ -17,9 +17,9 @@
       <h1 class="text-2xl font-bold">ABYA IDE</h1>
     </div>
   </nav>
-  <div class="flex flex-row mx-auto h-[90vh]">
+  <div class="flex lg:flex-row flex-col mx-auto lg:h-[90vh] h-auto ">
     <!-- Editor and Output Section -->
-    <div class="flex-col w-1/2 items-start">
+    <div class="flex-col lg:w-1/2 w-auto items-start">
       <!-- Code Editor -->
       <div class="w-full p-3 outline-none h-auto">
         <form method="post" class="mt-4">
@@ -56,7 +56,7 @@
       </div>
 
       <!-- Output Panel -->
-      <div class="flex-col w-1/2 p-4 bg-gray-200">
+      <div class="flex-col lg:w-1/2 w-auto m-2 p-4 bg-gray-200">
         <h2 class="text-lg font-bold mb-2">Output:</h2>
         <div id="output" class="bg-white p-4 h-auto border border-gray-300 rounded shadow-md overflow-auto">
           <!-- Output will be displayed here -->

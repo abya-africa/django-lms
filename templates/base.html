@@ -27,7 +27,7 @@
 <body class="w-full">
     {% if user.is_authenticated %}
     <div class="bg-black bg-opacity-80 w-full top-0 fixed mt-0" style="z-index: 1000;">
-        <div class="items-start p-1 left-2 ml-0 my-auto absolute">
+        <div class="items-start p-1 left-2 ml-0 my-auto absolute hidden lg:flex">
             {% comment %} <img src="{% static 'django_lms/images/abya2.jpg' %}" class="rounded-full bg-cover"/> {% endcomment %}
             <img width="300" height="300" src="https://abyauniversity.com/wp-content/uploads/2022/08/abya-university-resized.png" class="attachment-large size-large wp-image-3255" alt="" loading="lazy" srcset="https://abyauniversity.com/wp-content/uploads/2022/08/abya-university-resized.png 592w, https://abyauniversity.com/wp-content/uploads/2022/08/abya-university-resized-300x129.png 300w" sizes="(max-width: 592px) 100vw, 592px">
         </div>
@@ -35,11 +35,12 @@
             <button class="bg-gray-100 p-2 outline-none border-0 rounded-lg" onclick="togglePopup()">Click Me</button>
         </div> {% endcomment %}
         <div class="items-end mx-auto justify-end flex flex-row m-2">
+            <button id="opensd" class="text-white p-2 lg:hidden flex items-start justify-start left-0 top-[100px] rounded-lg hover:bg-yellow-500 hover:text-black hover:shadow-md transition duration-300 ease-in-out my-auto m-1">☰</button>
         <div class="flex flex-row p-2 space-x-4 font-bold">
             <a href="{% url 'courses:list' %}" class="text-xl text-gray-50 my-auto hover:text-yellow-500 transition delay-200 ease-in-out hover:no-underline">Dashboard</a>
-            <a href="" class="text-xl text-gray-50 my-auto hover:text-yellow-500 transition delay-200 ease-in-out hover:no-underline">Enrolled Courses</a>
+            <a href="" class="text-xl text-gray-50 my-auto hidden lg:flex hover:text-yellow-500 transition delay-200 ease-in-out hover:no-underline">Enrolled Courses</a>
             <a href="" class="text-xl text-gray-50 my-auto hover:text-yellow-500 transition delay-200 ease-in-out hover:no-underline">Library</a>
-            <img src="{% static 'django_lms/images/bell.png' %}" class="w-[35px] ml-3 hover:cursor-pointer h-[35px] text-gray-50 m-2 my-auto transition duration-300 ease-in-out" onclick="notificationbell()" id="bell"/>
+            <img src="{% static 'django_lms/images/bell.png' %}" class="w-[35px] hidden lg:flex ml-3 hover:cursor-pointer h-[35px] text-gray-50 m-2 my-auto transition duration-300 ease-in-out" onclick="notificationbell()" id="bell"/>
             {% comment %} <a href="#" class="hover:text-yellow-500 hover:no-underline w-[150px] h-[150px] text-gray-50 m-2 my-auto font-extrabold"><i class="fa fa-list courses-icon" aria-hidden="true"></i></a> {% endcomment %}
             {% for course in list_courses %}
                     
@@ -48,9 +49,9 @@
                     {% endif %}
                         
                 {% endfor %}
-            <span class="sidemenu side-element text-gray-50"><i class="fa fa-user-circle-o fa-5x text-gray-50" aria-hidden="true" id="profile"></i></span>
+            <span class="sidemenu right-2 side-element text-gray-50"><i class="fa fa-user-circle-o fa-5x text-gray-50" aria-hidden="true" id="profile"></i></span>
         </div>
-        <div class="my-auto m-3 text-white  font-sans text-xl hover:no-underline hover:text-yellow-500 flex-row flex">
+        <div class="my-auto m-3 text-white  font-sans text-xl hover:no-underline hover:text-yellow-500 flex-row lg:flex hidden">
             <a href="{% url 'profile' pk=user.pk %}" class="sidemenu text-white uppercase side-element font-bold hover:no-underline hover:text-yellow-500 transition delay-200 ease-in-out">{{user}}</a>
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="h-6 w-6 text-gray-50 hover:text-yellow-400 m-2 my-auto hover:cursor-pointer"
@@ -78,7 +79,7 @@
     </div>
     {% else %}
     <div class="bg-black bg-opacity-80 w-full top-0 relative mt-0">
-        <div class="items-start p-1 left-2 ml-0 my-auto absolute">
+        <div class="items-start p-1 left-2 ml-0 lg:my-auto absolute my-auto top-7 w-[150px] h-[150px] lg:w-[250px] lg:top-3">
             {% comment %} <img src="{% static 'django_lms/images/abya2.jpg' %}" class="rounded-full bg-cover"/> {% endcomment %}
             <img width="300" height="300" src="https://abyauniversity.com/wp-content/uploads/2022/08/abya-university-resized.png" class="attachment-large size-large wp-image-3255" alt="" loading="lazy" srcset="https://abyauniversity.com/wp-content/uploads/2022/08/abya-university-resized.png 592w, https://abyauniversity.com/wp-content/uploads/2022/08/abya-university-resized-300x129.png 300w" sizes="(max-width: 592px) 100vw, 592px">
         </div>
@@ -100,7 +101,7 @@
     </div>
     {% endif %}
     {% if user.is_authenticated %}
-    <div id="chatbot-sidenav" class="h-[890px] w-[20%] bg-cyan-950 top-[145px] fixed shadow-2xl right-0 justify-end mx-auto mr-0 rounded-md scroll-auto hidden" style="z-index: 1000;">
+    <div id="chatbot-sidenav" class="lg:h-[890px] h-[740px] lg:w-[20%] w-[385px] bg-cyan-950 top-[145px] lg:fixed absolute shadow-2xl lg:right-0 left-2 lg:justify-end lg:mx-auto lg:mr-0 rounded-md scroll-auto hidden" style="z-index: 1000;">
         <img src="{% static 'django_lms/images/close-final.png' %}" alt="close" onclick="toggleChatbot()" class="w-10 h-10 left-0 hover:cursor-pointer flex items-start justify-start  m-2"/>
         {% comment %} <button onclick="toggleChatbot()" class="flex items-start justify-start m-2 bg-red-500 p-2 rounded-xl hover:cursor-pointer font-sans font-semibold text-lg shadow-xl">Close</button> {% endcomment %}
         <h2 class="items-center justify-center mx-auto flex text-2xl font-sans font-semibold bg-gray-300 m-2 w-full  p-2 rounded-lg">ABYA Chatbot</h2>
@@ -127,13 +128,13 @@
 
     <!--sidebar {% endcomment-->
     {% if user.is_authenticated %}
-    <div class=" bg-gray-200 text-cyan-950 top-[150px] fixed w-[450px] h-[900px] overflow-y-auto">
+    <div class=" bg-gray-200 text-cyan-950 lg:top-[150px] delay-75 transition-all duration-200 ease-in-out lg:fixed h-[100vh] fixed lg:w-[450px] lg:h-[900px] lg:overflow-y-auto z-10">
     {% else %}
-    <div class=" bg-gray-200 text-cyan-950 fixed w-[450px] h-[900px] overflow-y-auto">
+    <div class=" bg-gray-200 text-cyan-950 fixed  lg:w-[450px] lg:h-[900px] lg:overflow-y-auto">
     {% endif %}
         {% comment %} style="background-color: #052635 {% endcomment %}
         {% if user.is_authenticated %} 
-        <div class="side-items flex flex-col text-2xl p-3 m-2 hover:decoration-yellow-500 text-white font-bold">
+        <div id="sd" class="side-items lg:flex flex-col hidden  text-2xl p-3 m-2 hover:decoration-yellow-500 text-white font-bold">
         {% if user.user_type == 1 %}
         <!-- Progress Bar -->
         <div class="bg-gray-100 shadow-md h-auto w-full rounded-lg m-2 ">
@@ -149,7 +150,6 @@
         {% endif %}
         {% comment %} {% if user.is_authenticated %} {% endcomment %}
             <a href="{% url 'home' %}" class="hover:text-yellow-500 mb-3 mt-3 hover:no-underline text-cyan-950 font-extrabold"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
-            {% comment %} <a href="{% url 'courses:list' %}" class="text-black font-extrabold"><i class="fa fa-list-ul text-white font-extrabold" aria-hidden="true"></i>All Courses</a> {% endcomment %}
             {% if user.user_type == 1 %}
             <!-- Your Courses -->
             <a href="#" class="hover:text-yellow-500 hover:no-underline text-cyan-950 font-extrabold"><i class="fa fa-list courses-icon" aria-hidden="true"></i>Your Courses</a>
@@ -237,17 +237,19 @@
             
 
             {% else %}
+                <div class="flex flex-col">
                 <a href="{% url 'courses:create' %}" class="text-cyan-950 hover:text-yellow-500 hover:cursor-pointer hover:no-underline hover:shadow-md p-2"><i class="fa fa-plus-circle" aria-hidden="true" style="color: #052635;font-size: 20px;"></i> Create New Course</a>
                 <a href="{% url 'courses:create_chapter' %}" class="text-cyan-950 hover:text-yellow-500 hover:cursor-pointer hover:no-underline hover:shadow-md p-2"><i class="fa fa-plus-circle" aria-hidden="true" style="color: #052635;font-size: 20px;"></i> Create New Chapter</a>
                 <a href="{% url 'courses:create_lesson' %}" class="text-cyan-950 hover:text-yellow-500 hover:cursor-pointer hover:no-underline hover:shadow-md p-2"><i class="fa fa-plus-circle" aria-hidden="true" style="color: #052635;font-size: 20px;"></i> Create New Lesson</a>
                 <a href="{% url 'assignments:create' %}" class="text-cyan-950 hover:text-yellow-500 hover:cursor-pointer hover:no-underline hover:shadow-md p-2"><i class="fa fa-plus-circle" aria-hidden="true" style="color: #052635;font-size: 20px;"></i> Create New Assignment</a>
                 <a href="{% url 'assignments:create' %}" class="text-cyan-950 hover:text-yellow-500 hover:cursor-pointer hover:no-underline hover:shadow-md p-2"><i class="fa fa-plus-circle" aria-hidden="true" style="color: #052635;font-size: 20px;"></i> Create New Resource</a>
                 <a href="{% url 'assignments:create_quiz' %}" class="text-cyan-950 hover:text-yellow-500 hover:cursor-pointer hover:no-underline hover:shadow-md p-2"><i class="fa fa-plus-circle" aria-hidden="true" style="color: #777777;font-size: 20px;"></i> Create New Quiz</a>
+                </div>
                 <span class="sidemenu text-cyan-950 font-extrabold"><h5 id="side-head" class="text-cyan-950"><i class="fa fa-list courses-icon text-cyan-950" aria-hidden="true" style="color: #052635;font-size: 20px;"></i>Your Courses</h5></span>
                 {% for course in list_courses %}
                     
                     {% if user.id == course.teacher.id %}
-                        <span class="course-item ml-4"><a href="{% url 'courses:detail' pk=course.pk %}" class="text-cyan-950 hover:text-yellow-500">{{course}}</a></span>
+                        <span class="course-item ml-4 flex flex-col"><a href="{% url 'courses:detail' pk=course.pk %}" class="text-cyan-950 hover:text-yellow-500">{{course}}</a></span>
                     {% endif %}
                         
                 {% endfor %}                 
@@ -263,7 +265,7 @@
             </div>
             <a href="{% url 'users:logout' %}" class="text-cyan-950 hover:text-yellow-500 hover:no-underline font-extrabold" class="sidemenu"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
         {% else %}
-            <div class="flex flex-col space-y-4 text-2xl font-extrabold m-3 p-2">
+            <div class="lg:flex lg:flex-col lg:space-y-4 text-2xl font-extrabold m-3 p-2 hidden">
             <a class="sidemenu side-element text-cyan-950 hover:text-yellow-500 hover:no-underline">Guest</a>
             <a href="{% url 'home' %}" class="text-cyan-950 mt-2 mb-2 hover:text-yellow-500 hover:no-underline font-semibold"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
             <a href="{% url 'users:login' %}" class="text-cyan-950 mt-2 mb-2 hover:text-yellow-500 hover:no-underline font-semibold"><i class="fa fa-sign-in" aria-hidden="true"></i>Login</a>
@@ -384,6 +386,10 @@
 
 </body>
 <script>
+    document.getElementById('opensd').addEventListener('click', function() {
+        document.getElementById('sd').classList.toggle('hidden');
+    });
+
     function toggleChapters(courseId) {
         console.log("Toggling chapters for course ID:", courseId);
         const chapters = document.getElementById(`chapters-${courseId}`);

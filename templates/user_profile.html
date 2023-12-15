@@ -10,22 +10,22 @@
     
 
 {% block body_content %}
-    <div class="mt-[150px] ml-3 w-[72%] text-cyan-950 font-serif bg-transparent overflow-auto h-[850px]">
+    <div class="lg:mt-[150px] mt-[120px] lg:ml-3 lg:w-[72%] w-auto absolute lg:relative left-2 text-cyan-950 font-serif bg-transparent overflow-auto lg:h-[850px] h-auto">
         {% if user.is_authenticated %}
             <i class="fa fa-user-circle-o fa-5x" aria-hidden="true"></i>
             {% comment %} <p>{{ user.}}</p> {% endcomment %}
             <h1 class="text-3xl font-semibold">Username: {{user.username}}</h1>
-            <h4 class="text-xl">First Name: {{user.first_name}}</h4>
-            <h4 class="text-xl">Last Name: {{user.last_name}}</h4>
+            <h4 class="text-xl font-semibold">First Name: {{user.first_name}}</h4>
+            <h4 class="text-xl font-semibold">Last Name: {{user.last_name}}</h4>
             
-            <h4 class="text-xl">Type: 
+            <h4 class="text-xl font-semibold">Type: 
             {% if user.user_type == 1 %}
                 Student
             {% else %}
                 Teacher                
             {% endif %}
             </h4>
-            <h5 class="text-xl">Email: {{user.email}}</h5>
+            <h5 class="text-xl font-semibold">Email: {{user.email}}</h5>
         
             {% if user.user_type == 2 %}
             {% comment %} <h3 class="font-sans text-2xl mt-5">Created Courses</h3> {% endcomment %}
@@ -33,7 +33,7 @@
                 {% for course in course_list %}
                     
                     {% if course.teacher.id == user.id %}
-                        <div class="bg-black bg-opacity-40 m-2 shadow-md rounded-md" style="width: 20rem">
+                        <div class="bg-white bg-opacity-40 m-2 shadow-lg rounded-md" style="width: 20rem">
                             <div class="card-image">
                                 <!-- Place your image here -->
                                 <img src="{% static 'django_lms/images/web5.jpg' %}" alt="Course Image" class="w-full h-50 object-cover rounded-t-md" />
@@ -41,9 +41,9 @@
                             <div class="card-body p-4">
                             <h5 class="card-title">{{course.course_name}}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">{{course.teacher}}</h6>
-                            <p class="card-text">
+                            {% comment %} <p class="card-text">
                                 {{course.course_description}}
-                            </p>
+                            </p> {% endcomment %}
                             <a href="{% url 'courses:detail' pk=course.pk %}" 
                             class="bg-blue-950 text-white m-2 p-2 hover:bg-yellow-400 rounded-md text-md font-extrabold hover:no-underline">More Info</a>
                             <p class="m-2">{{course.students.count}}
