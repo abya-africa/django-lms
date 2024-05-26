@@ -205,9 +205,10 @@ class CourseDetail(generic.DetailView):
                 lesson_count = lessons.count()
                 quiz_count = quizzes.count()
                 # Get the completed quiz IDs from the completedquiz model
-                completed_quizzes = CompletedQuiz.objects.filter(user=user_id, quiz__chapter__course=course).values_list('quiz_id', flat=True)
-                
+                completed_quizzes = list(CompletedQuiz.objects.filter(user=user_id, quiz__chapter__course=course).values_list('quiz_id', flat=True))
+                print("Completed quizeees: ", completed_quizzes)
                 completed_quizzes_ids = set(completed_quizzes)
+                print("completeeed quiz ids: ", completed_quizzes_ids)
 
                 # Check if all lessons and quizzes in the chapter are completed
                 is_completed = all(
@@ -251,12 +252,11 @@ class CourseDetail(generic.DetailView):
             print("Total Quizzes:", total_quizzes)
 
             # get the completed quizzes
-            completed_quizzes = CompletedQuiz.objects.filter(user=user_id, quiz__chapter__course=course)
+            # completed_quizzes = CompletedQuiz.objects.filter(user=user_id, quiz__chapter__course=course)
 
-            # Get the completed quiz IDs from the UserProfile
-            # completed_quizzes = user_profile.completed_quizzes.values_list('id', flat=True)
-            # completed_quizzes_ids = list(completed_quizzes)
-            # print("Completed Quizzeddds:", completed_quizzes_ids)
+            # append the completed quiz ids in the completed quizzes list
+
+            
 
             completed_quizzes_count = len(completed_quizzes) if completed_quizzes else 0
             completed_lessons = CompletedLesson.objects.filter(user=user_id, lesson__chapter__course=course).count()

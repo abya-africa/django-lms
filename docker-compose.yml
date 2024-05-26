@@ -7,7 +7,7 @@ services:
       - "3306:3306"
     environment:
       - MYSQL_DATABASE=django_lms
-      - MYSQL_USER=dev
+      - MYSQL_USER=root
       - MYSQL_PASSWORD=password
       - MYSQL_ROOT_PASSWORD=password
     volumes:

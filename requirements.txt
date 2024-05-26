@@ -104,6 +104,7 @@ virtualenv==20.24.2
 Werkzeug==2.2.3
 yarl==1.9.2
 djangorestframework
+google_auth_oauthlib
 
 google-api-python-client==2.24.0
 
